@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <section id="app">
+    <div class="column-layout">
+      <header class="column-layout__header">
+      </header>
+      <main class="column-layout__body">
+        <chat></chat>
+      </main>
+    </div>
+  </section>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+import Chat from "@/components/Chat"
+  export default {
+    components: {
+      Chat,
+    },
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import "./assets/reset.css";
+@import "./assets/atoms.css";
+@import "./assets/typo.scss";
+body {
+  background: $dark-bg;
+}
+
+.column-layout__header {
+  height: 4em;
+}
+
+.column-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.column-layout__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+} 
+
+.column-layout__body > div{
+  flex: 1;
 }
 </style>
