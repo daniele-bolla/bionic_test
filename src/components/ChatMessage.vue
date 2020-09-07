@@ -2,12 +2,18 @@
   <div class="message" :class="`message--${userLocation}`">
     <div class="message__content" :class="`message__content--${userLocation}`">
       Hello! Please choose from one of the options below:
+      <chat-options></chat-options>
     </div>
   </div>
 </template>
 
 <script>
+import ChatOptions from "@/components/ChatOptions.vue";
+
 export default {
+  components: {
+    ChatOptions
+  },
   props: {
     userLocation: {
       type: String,

@@ -32,6 +32,7 @@ export default {
           time: Date.now(),
           isLoading: false,
           userLocation: "front",
+          contentType: "options",
           content: "asdasfaf ",
           name: "Me"
         },

@@ -16,6 +16,7 @@ export default {};
 }
 
 .dots__dot {
+  flex: none;
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
