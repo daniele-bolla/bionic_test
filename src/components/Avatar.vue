@@ -1,29 +1,59 @@
 <template>
-  <div class="avatar centered-content">
-    <span class="avatar__text">m</span>
+  <div class="avatar centered-content" :class="`avatar--${userLocation}`">
+    <span class="avatar__text" :class="`avatar__text--${userLocation}`">{{
+      name
+    }}</span>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    userLocation: {
+      type: String,
+      default: "remote",
+      validator: value => {
+        return ["front", "remote"].includes(value);
+      }
+    },
+    name: {
+      type: String,
+      default: "A"
+    }
+  }
+};
 </script>
 
 <style lang="scss">
 .avatar {
-  vertical-align: middle;
-  width: 56px;
-  height: 56px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
-  border-radius: 50%;
+  flex: none;
+}
+
+.avatar--remote {
   background-color: $light-blue;
   margin-right: 1.125rem;
+}
+
+.avatar--front {
+  background-color: $dark-purple-blue;
+  margin-left: 1.125rem;
 }
 
 .avatar__text {
   font-weight: $bold;
   font-size: 1.75rem;
   line-height: 1.75rem;
-  color: $dark-purple-blue;
   display: block;
+}
+
+.avatar__text--remote {
+  color: $dark-purple-blue;
+}
+
+.avatar__text--front {
+  color: $white;
 }
 </style>

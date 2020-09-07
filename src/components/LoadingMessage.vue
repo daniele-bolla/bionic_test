@@ -13,14 +13,13 @@ export default {};
 <style lang="scss">
 .dots {
   display: flex;
-  align-self: center;
 }
 
 .dots__dot {
-  width: 0.6rem;
-  height: 0.6rem;
+  width: 0.4rem;
+  height: 0.4rem;
   border-radius: 50%;
-  margin-right: 0.4rem;
+  margin-right: 0.2rem;
 }
 
 .dots__dot--1 {
