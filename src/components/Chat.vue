@@ -1,16 +1,22 @@
 <template>
   <div class="chat">
-    <div class="chat__body"></div>
+    <div class="chat__body">
+      <chat-block></chat-block>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-    
+import ChatBlock from "@/components/ChatBlock";
+
+export default {
+  components: {
+    ChatBlock
   }
+};
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .chat {
   background-color: $light-grey;
   border-radius: $radius $radius 0 0;

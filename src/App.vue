@@ -1,8 +1,7 @@
 <template>
   <section id="app">
     <div class="column-layout">
-      <header class="column-layout__header">
-      </header>
+      <header class="column-layout__header"></header>
       <main class="column-layout__body">
         <chat></chat>
       </main>
@@ -11,12 +10,12 @@
 </template>
 
 <script>
-import Chat from "@/components/Chat"
-  export default {
-    components: {
-      Chat,
-    },
+import Chat from "@/components/Chat";
+export default {
+  components: {
+    Chat
   }
+};
 </script>
 
 <style lang="scss">
@@ -24,7 +23,8 @@ import Chat from "@/components/Chat"
 @import "./assets/atoms.css";
 @import "./assets/typo.scss";
 body {
-  background: $dark-bg;
+  background-color: $dark-bg;
+  color: $text-blue;
 }
 
 .column-layout__header {
@@ -41,9 +41,9 @@ body {
   display: flex;
   flex: 1;
   flex-direction: column;
-} 
+}
 
-.column-layout__body > div{
+.column-layout__body > * {
   flex: 1;
 }
 </style>
