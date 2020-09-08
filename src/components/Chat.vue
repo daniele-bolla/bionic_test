@@ -179,4 +179,11 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
+@media (max-width: 768px) {
+  .chat__body {
+    width: 100vw;
+    max-width: 100%;
+  }
+}
 </style>
