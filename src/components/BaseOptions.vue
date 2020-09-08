@@ -5,8 +5,12 @@
         <input
           class="radio_input__input"
           :name="option.name"
+          :value="option.value"
           type="radio"
           :id="option.name"
+          :checked="option.value == value"
+          @input="$emit('input', $event.target.value)"
+          @change="$emit('change', $event.target.value)"
         />
         <label class="radio_input__label" :for="option.name">{{
           option.label
@@ -21,6 +25,10 @@ export default {
   props: {
     options: {
       type: Array,
+      required: true
+    },
+    value: {
+      type: String,
       required: true
     }
   }

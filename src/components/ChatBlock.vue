@@ -1,25 +1,28 @@
 <template>
   <div class="chat-block" :class="`chat-block--${userLocation}`">
-    <avatar :user-location="userLocation" :name="name"></avatar>
-    <loading-message v-if="isLoading"></loading-message>
-    <chat-message
+    <chat-block-avatar
+      :user-location="userLocation"
+      :name="name"
+    ></chat-block-avatar>
+    <chat-block-content-loader v-if="isLoading"></chat-block-content-loader>
+    <chat-block-content
       v-else
       :content="content"
       :user-location="userLocation"
-    ></chat-message>
+    ></chat-block-content>
   </div>
 </template>
 
 <script>
-import Avatar from "@/components/Avatar.vue";
-import ChatMessage from "@/components/ChatMessage.vue";
-import LoadingMessage from "@/components/LoadingMessage.vue";
+import ChatBlockAvatar from "@/components/ChatBlockAvatar.vue";
+import ChatBlockContent from "@/components/ChatBlockContent.vue";
+import ChatBlockContentLoader from "@/components/ChatBlockContentLoader.vue";
 
 export default {
   components: {
-    Avatar,
-    ChatMessage,
-    LoadingMessage
+    ChatBlockAvatar,
+    ChatBlockContent,
+    ChatBlockContentLoader
   },
   props: {
     isLoading: {
@@ -34,8 +37,7 @@ export default {
       }
     },
     content: {
-      type: String,
-      default: ""
+      type: Object
     },
     name: {
       type: String,

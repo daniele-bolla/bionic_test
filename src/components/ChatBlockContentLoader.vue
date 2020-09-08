@@ -20,7 +20,7 @@ export default {};
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
-  margin-right: 0.2rem;
+  margin-right: 0.3rem;
 }
 
 .dots__dot--1 {

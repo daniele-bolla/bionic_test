@@ -2,11 +2,12 @@
   <div class="chat">
     <div class="chat__body">
       <chat-block
-        v-for="chatBlock in chatBlocks"
-        :key="chatBlock.time"
+        v-for="(chatBlock, index) in chatStack"
+        :key="index"
         :is-loading="chatBlock.isLoading"
         :name="chatBlock.name"
         :user-location="chatBlock.userLocation"
+        :content="chatBlock.content"
       ></chat-block>
     </div>
   </div>
@@ -20,39 +21,88 @@ export default {
   },
   data() {
     return {
-      chatBlocks: [
-        {
-          time: Date.now(),
-          isLoading: true,
-          userLocation: "remote",
-          content: "",
-          name: "m"
-        },
-        {
-          time: Date.now(),
-          isLoading: false,
-          userLocation: "front",
-          contentType: "options",
-          content: "asdasfaf ",
-          name: "Me"
-        },
-        {
-          time: Date.now(),
-          isLoading: false,
-          userLocation: "remote",
-          content: "asdasfaf ",
-          name: "m"
-        }
-      ]
+      chatStack: [],
+      userSelection: ""
     };
   },
   mounted() {
     this.runChat();
   },
   methods: {
-    runChat() {
-      const { [0]: firstChat } = this.chatBlocks;
-      console.log(firstChat);
+    fakeCall(fakeMessage) {
+      this.chatStack.push(fakeMessage);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          fakeMessage.isLoading = false;
+          resolve(fakeMessage);
+        }, 1000);
+      });
+    },
+    changeUserChoice(index, newVal) {
+      let fakeMessage = this.chatStack[index];
+      fakeMessage.isLoading = true;
+      fakeMessage.content.props.text = `${newVal}? Great choice!`;
+
+      return new Promise(resolve => {
+        setTimeout(() => {
+          fakeMessage.isLoading = false;
+          resolve(fakeMessage);
+        }, 1000);
+      });
+    },
+    createMessage(userType, content) {
+      return {
+        id: Date.now(),
+        isLoading: true,
+        userLocation: userType == "bot" ? "remote" : "front",
+        content,
+        name: userType == "bot" ? "m" : "Me"
+      };
+    },
+    async runChat() {
+      const firstBotMessage = this.createMessage("bot", {
+        props: {
+          text: "Hello! Please choose from one of the options below:"
+        }
+      });
+      await this.fakeCall(firstBotMessage);
+
+      const firstUserMessage = this.createMessage("currentUser", {
+        model: "",
+        onSelect: async val => {
+          const { length, [length - 1]: last } = this.chatStack;
+          if (last.userLocation == "front") {
+            const lastBotMessage = this.createMessage("bot", {
+              props: {
+                text: `${val}? Great choice!`
+              }
+            });
+            await this.fakeCall(lastBotMessage);
+          } else {
+            this.changeUserChoice(length - 1, val);
+          }
+        },
+        props: {
+          options: [
+            {
+              value: "option-a",
+              name: "option-a",
+              label: "Option A"
+            },
+            {
+              value: "option-b",
+              name: "option-b",
+              label: "Option B"
+            },
+            {
+              value: "option-c",
+              name: "option-c",
+              label: "Option C"
+            }
+          ]
+        }
+      });
+      await this.fakeCall(firstUserMessage);
     }
   }
 };
