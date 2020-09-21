@@ -21,11 +21,6 @@ export default {
   components: {
     ChatBlock
   },
-  // data() {
-  //   return {
-  //     chatStack: state
-  //   };
-  // },
   computed: {
     chatStack() {
       return state.conversationStack;
@@ -74,28 +69,6 @@ export default {
 
       await mutations.addMessage("currentUser", {
         model: "",
-        onSelect: async val => {
-          const { length, [length - 1]: last } = this.chatStack;
-          if (last.userLocation == "front") {
-            // const lastBotMessage = this.createMessage("bot", {
-            //   props: {
-            //     text: `${val}? Great choice!`
-            //   }
-            // });
-            // await this.fakeCall(lastBotMessage);
-            await mutations.addMessage("bot", {
-              props: {
-                text: `<strong>${val}</strong>? Great choice!`
-              }
-            });
-          } else {
-            // this.changeUserChoice(length - 1, val);
-            await mutations.changeUserChoice(
-              last.id,
-              `<strong>${val}</strong>? Great choice!`
-            );
-          }
-        },
         props: {
           options: [
             {
@@ -116,50 +89,6 @@ export default {
           ]
         }
       });
-      /*
-      const firstBotMessage = this.createMessage("bot", {
-        props: {
-          text: "Hello! Please choose from one of the options below:"
-        }
-      });
-      await this.fakeCall(firstBotMessage);
-
-      const firstUserMessage = this.createMessage("currentUser", {
-        model: "",
-        onSelect: async val => {
-          const { length, [length - 1]: last } = this.chatStack;
-          if (last.userLocation == "front") {
-            const lastBotMessage = this.createMessage("bot", {
-              props: {
-                text: `${val}? Great choice!`
-              }
-            });
-            await this.fakeCall(lastBotMessage);
-          } else {
-            this.changeUserChoice(length - 1, val);
-          }
-        },
-        props: {
-          options: [
-            {
-              value: "option-a",
-              name: "option-a",
-              label: "Option A"
-            },
-            {
-              value: "option-b",
-              name: "option-b",
-              label: "Option B"
-            },
-            {
-              value: "option-c",
-              name: "option-c",
-              label: "Option C"
-            }
-          ]
-        }
-      });
-      await this.fakeCall(firstUserMessage);*/
     }
   }
 };

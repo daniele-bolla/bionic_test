@@ -43,7 +43,8 @@ const fakePut = async (messageToUpdate, newTextValue) => {
 };
 
 export const state = Vue.observable({
-  conversationStack: []
+  conversationStack: [],
+  userChoice: ""
 });
 
 export const getters = {
@@ -59,5 +60,21 @@ export const mutations = {
   async changeUserChoice(id, newMessage) {
     const messageToUpdate = getters.find(id);
     await fakePut(messageToUpdate, newMessage);
+  },
+  async setUserChoice({ value, label }) {
+    state.userChoice = value;
+    const { length, [length - 1]: last } = state.conversationStack;
+    if (last.userLocation == "front") {
+      await mutations.addMessage("bot", {
+        props: {
+          text: `<strong>${label}</strong>? Great choice!`
+        }
+      });
+    } else {
+      await mutations.changeUserChoice(
+        last.id,
+        `<strong>${label}</strong>? Great choice!`
+      );
+    }
   }
 };

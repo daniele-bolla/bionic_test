@@ -9,7 +9,7 @@
           type="radio"
           :id="option.name"
           :checked="option.value == value"
-          @change="handleChange"
+          @input="handleChange"
         />
         <label class="radio_input__label" :for="option.name">{{
           option.label
@@ -34,8 +34,8 @@ export default {
   methods: {
     handleChange(event) {
       const value = event.target.value;
-      const { label } = this.options.find(option => option.value == value);
-      this.$emit("change", label);
+      const selcetedOption = this.options.find(option => option.value == value);
+      this.$emit("input", selcetedOption);
     }
   }
 };

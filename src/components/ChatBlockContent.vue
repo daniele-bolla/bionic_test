@@ -7,8 +7,7 @@
       <div v-else>
         <base-options
           v-bind="{ ...content.props }"
-          @change="content.onSelect"
-          v-model="content.model"
+          v-model="userChoice"
         ></base-options>
       </div>
     </div>
@@ -18,6 +17,8 @@
 <script>
 import BaseOptions from "@/components/BaseOptions.vue";
 import BaseTextContent from "@/components/BaseTextContent.vue";
+
+import { state, mutations } from "@/BotConversation.js";
 
 export default {
   components: {
@@ -35,6 +36,16 @@ export default {
     content: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    userChoice: {
+      get() {
+        return state.userChoice;
+      },
+      async set(val) {
+        await mutations.setUserChoice(val);
+      }
     }
   }
 };
