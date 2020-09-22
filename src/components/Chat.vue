@@ -30,36 +30,6 @@ export default {
     this.runChat();
   },
   methods: {
-    fakeCall(fakeMessage) {
-      this.chatStack.push(fakeMessage);
-      return new Promise(resolve => {
-        setTimeout(() => {
-          fakeMessage.isLoading = false;
-          resolve(fakeMessage);
-        }, 1000);
-      });
-    },
-    changeUserChoice(index, newVal) {
-      let fakeMessage = this.chatStack[index];
-      fakeMessage.isLoading = true;
-      fakeMessage.content.props.text = `${newVal}? Great choice!`;
-
-      return new Promise(resolve => {
-        setTimeout(() => {
-          fakeMessage.isLoading = false;
-          resolve(fakeMessage);
-        }, 1000);
-      });
-    },
-    createMessage(userType, content) {
-      return {
-        id: Date.now(),
-        isLoading: true,
-        userLocation: userType == "bot" ? "remote" : "front",
-        content,
-        name: userType == "bot" ? "m" : "Me"
-      };
-    },
     async runChat() {
       await mutations.addMessage("bot", {
         props: {
