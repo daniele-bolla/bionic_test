@@ -5,5 +5,7 @@ module.exports = {
         additionalData: `@import "@/assets/variables.scss";`
       }
     }
-  }
+  },
+  publicPath: "/fake_chat_demo/"
+
 };
